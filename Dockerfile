@@ -1,16 +1,20 @@
 FROM maven:3.9-eclipse-temurin-21 AS build
 WORKDIR /app
 
-COPY expensetracker/pom.xml .
-COPY expensetracker/src ./src
+COPY . .
 
 ENV MAVEN_OPTS="-Xmx384m -XX:+UseG1GC"
-RUN mvn clean package -DskipTests
+
+RUN if [ -f "./expensetracker/pom.xml" ]; then \
+        cd expensetracker && mvn clean package -DskipTests && cp target/*.jar /app/app.jar; \
+    else \
+        mvn clean package -DskipTests && cp target/*.jar /app/app.jar; \
+    fi
 
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 
-COPY --from=build /app/target/*.jar app.jar
+COPY --from=build /app/app.jar app.jar
 
 EXPOSE 8081
 
