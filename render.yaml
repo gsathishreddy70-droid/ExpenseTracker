@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: expensetracker-backend
+    runtime: docker
+    dockerfilePath: ./expensetracker/Dockerfile
+    dockerContext: ./expensetracker
+    plan: free
+    region: oregon
+    envVars:
+      - key: DB_URL
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false

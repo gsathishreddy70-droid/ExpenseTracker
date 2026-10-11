@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "./config";
 
 function AddExpense() {
 
@@ -30,7 +31,7 @@ function AddExpense() {
     try {
 
       await axios.post(
-        "http://localhost:8081/expenses",
+        `${API_BASE_URL}/expenses`,
         {
           ...expense,
           amount: Number(expense.amount)

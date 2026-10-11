@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "./config";
 
 function Dashboard() {
 
@@ -11,7 +12,7 @@ function Dashboard() {
   const getExpenses = () => {
 
     axios
-      .get("http://localhost:8081/expenses")
+      .get(`${API_BASE_URL}/expenses`)
       .then((response) => {
 
         setExpenses(response.data);
@@ -34,7 +35,7 @@ function Dashboard() {
   const deleteExpense = (id) => {
 
     axios
-      .delete(`http://localhost:8081/expenses/${id}`)
+      .delete(`${API_BASE_URL}/expenses/${id}`)
       .then(() => {
 
         alert("Expense deleted successfully");
